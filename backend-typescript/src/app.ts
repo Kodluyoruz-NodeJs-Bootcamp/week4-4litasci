@@ -1,14 +1,16 @@
 import '@/index';
+import "reflect-metadata";
 import config from 'config';
 import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
-import { connect, set } from 'mongoose';
-import { dbConnection } from '@databases';
+//import { connect, set } from 'mongoose';
+//import { dbConnection } from '@databases';
 import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
-
+import { createConnection } from "typeorm";
+import {User} from "@models/user.entity";
 class App {
   public app: express.Application;
   public port: string | number;
@@ -40,10 +42,23 @@ class App {
 
   private connectToDatabase() {
     if (this.env !== 'production') {
-      set('debug', true);
+      //set('debug', true);
     }
 
-    connect(dbConnection.url, dbConnection.options);
+    //connect(dbConnection.url, dbConnection.options);
+    createConnection({
+      type: "mysql",
+      database: "Users",
+      username: "root",
+      password: "******",
+      logging: true,
+      synchronize: true,
+      entities: [User]
+    }).then (r =>{
+      console.log("Connected  to DB")
+    }).catch(err =>{
+      console.log(err)
+    })
   }
 
   private initializeMiddlewares() {
