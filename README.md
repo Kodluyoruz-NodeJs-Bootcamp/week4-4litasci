@@ -7,7 +7,7 @@ Ali Tasci
 git pull https://github.com/Kodluyoruz-NodeJs-Bootcamp/week4-4litasci.git
 ```
 
-Backend TypeScript
+Backend TypeScript (MySQL needed!)
 ```console
 cd week4-4litasci/backend-typescript && npm install && npm start dev
 ```

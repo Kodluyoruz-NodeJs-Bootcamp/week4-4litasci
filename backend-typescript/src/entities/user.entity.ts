@@ -1,20 +1,25 @@
-import {Entity,PrimaryGeneratedColumn,Column,BaseEntity} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, Unique} from "typeorm";
+import {IsNotEmpty} from "class-validator";
+import {User} from "@interfaces/users.interface";
 
 @Entity()
-export class User extends BaseEntity{
+export class UserEntity extends BaseEntity implements User {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
+    @IsNotEmpty()
     email: string;
 
     @Column()
+    @IsNotEmpty()
     password: string;
 
     @Column()
+    @IsNotEmpty()
     fullname: string;
 
-    @Column()
+    @CreateDateColumn()
     createdAt: Date;
 
 }
