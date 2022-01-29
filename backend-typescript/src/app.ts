@@ -10,7 +10,8 @@ import { Routes } from '@interfaces/routes.interface';
 import errorMiddleware from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
 import { createConnection } from "typeorm";
-import {User} from "@models/user.entity";
+import {User} from "@/entities/user.entity";
+import {dbConnection} from "@databases";
 class App {
   public app: express.Application;
   public port: string | number;
@@ -41,20 +42,7 @@ class App {
   }
 
   private connectToDatabase() {
-    if (this.env !== 'production') {
-      //set('debug', true);
-    }
-
-    //connect(dbConnection.url, dbConnection.options);
-    createConnection({
-      type: "mysql",
-      database: "Users",
-      username: "root",
-      password: "******",
-      logging: true,
-      synchronize: true,
-      entities: [User]
-    }).then (r =>{
+    createConnection(dbConnection).then (r =>{
       console.log("Connected  to DB")
     }).catch(err =>{
       console.log(err)

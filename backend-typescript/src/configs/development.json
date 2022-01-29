@@ -2,8 +2,10 @@
     "env": "development",
     "dbConfig": {
         "host": "localhost",
-        "database": "test",
-        "port": 27017
+        "user": "root",
+        "password": "GuvenliMysqlSifresi",
+        "database": "Users",
+        "port": 3306
     },
     "secretKey": "UltraGuvenliToken",
     "log": {
